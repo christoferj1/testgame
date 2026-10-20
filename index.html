@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Testgame — Tetris</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -121,6 +121,9 @@
       font-size: 1.3rem;
       padding: 0;
       border-radius: 50%;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     /* QR code */
@@ -452,12 +455,17 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Mobile buttons
-document.getElementById('btn-left')  .addEventListener('click', () => { if (running && valid(current.shape, current.x-1, current.y)) current.x--; });
-document.getElementById('btn-right') .addEventListener('click', () => { if (running && valid(current.shape, current.x+1, current.y)) current.x++; });
-document.getElementById('btn-rotate').addEventListener('click', () => { if (running) { const r = rotate(current.shape); if (valid(r, current.x, current.y)) current.shape = r; }});
-document.getElementById('btn-down')  .addEventListener('click', () => { if (running) { if (valid(current.shape, current.x, current.y+1)) current.y++; else place(); }});
-document.getElementById('btn-drop')  .addEventListener('click', () => { if (running) hardDrop(); });
+// Mobile buttons — use touchstart for instant response, prevent ghost click & zoom
+function addTouchBtn(id, fn) {
+  const el = document.getElementById(id);
+  el.addEventListener('touchstart', e => { e.preventDefault(); fn(); }, { passive: false });
+  el.addEventListener('click', fn); // fallback for non-touch
+}
+addTouchBtn('btn-left',   () => { if (running && valid(current.shape, current.x-1, current.y)) current.x--; });
+addTouchBtn('btn-right',  () => { if (running && valid(current.shape, current.x+1, current.y)) current.x++; });
+addTouchBtn('btn-rotate', () => { if (running) { const r = rotate(current.shape); if (valid(r, current.x, current.y)) current.shape = r; }});
+addTouchBtn('btn-down',   () => { if (running) { if (valid(current.shape, current.x, current.y+1)) current.y++; else place(); }});
+addTouchBtn('btn-drop',   () => { if (running) hardDrop(); });
 
 document.getElementById('start-btn').addEventListener('click', startGame);
 </script>
