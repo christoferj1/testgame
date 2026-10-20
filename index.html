@@ -16,7 +16,8 @@
       min-height: 100vh;
       font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
       color: #e0e0ff;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     /* Starfield */
@@ -35,7 +36,8 @@
       display: flex;
       gap: 24px;
       align-items: flex-start;
-      margin-left: 32px;
+      /* push right so starfield shows on left, but never clip the board */
+      transform: translateX(min(32px, max(0px, 50vw - 190px)));
     }
 
     /* Canvas */
@@ -116,7 +118,7 @@
       gap: 12px;
       margin-top: 16px;
       align-items: flex-end;
-      margin-left: 32px;
+      transform: translateX(min(32px, max(0px, 50vw - 190px)));
     }
     #controls button {
       width: 64px; height: 64px;
