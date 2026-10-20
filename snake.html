@@ -53,6 +53,8 @@
       gap: 12px;
       position: relative;
       z-index: 1;
+      max-width: 100vw;
+      padding: 0 4px;
     }
 
     #hud {
@@ -157,7 +159,9 @@
 </div>
 
 <script>
-const COLS = 20, ROWS = 20, SZ = 20;
+const COLS = 20, ROWS = 20;
+// Fit board inside the screen with a small margin for the border
+const SZ = Math.min(20, Math.floor((Math.min(window.innerWidth, 420) - 8) / COLS));
 const canvas = document.getElementById('board');
 canvas.width  = COLS * SZ;
 canvas.height = ROWS * SZ;
