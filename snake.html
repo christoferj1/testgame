@@ -213,7 +213,7 @@ function startGame() {
   dir     = {x:1, y:0};
   nextDir = {x:1, y:0};
   score   = 0;
-  speed   = 150;
+  speed   = 158;
   running = true;
   document.getElementById('score').textContent = '0';
   document.getElementById('message').style.display = 'none';
@@ -243,7 +243,7 @@ function tick() {
     }
     // Speed up every 5 strawberries
     if (score % 5 === 0) {
-      speed = Math.max(60, speed - 10);
+      speed = Math.max(63, speed - 10);
       clearInterval(gameInterval);
       gameInterval = setInterval(tick, speed);
     }
