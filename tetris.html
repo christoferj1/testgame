@@ -202,7 +202,7 @@
     </div>
     <div class="panel-box">
       <h3>Next</h3>
-      <canvas id="next-canvas" width="56" height="56"></canvas>
+      <canvas id="next-canvas" width="44" height="44"></canvas>
     </div>
   </div>
 </div>
@@ -400,7 +400,7 @@ function draw() {
 
 function drawNext() {
   nCtx.clearRect(0, 0, nCanvas.width, nCanvas.height);
-  const ns = 20;
+  const ns = Math.floor(nCanvas.width / 5);
   const shape = next.shape;
   const ox = Math.floor((5 - shape[0].length) / 2);
   const oy = Math.floor((5 - shape.length) / 2);
